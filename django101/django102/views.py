@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.views.decorators.http import require_GET
 from django.views.generic import ListView
 
-from django102.models import Game
+from django102.models.game import Game
+from django102.models.person import Person
 
 
 def something(request):
