@@ -6,6 +6,7 @@ from django.views.generic import ListView
 
 from django102.models.game import Game
 from django102.models.person import Person
+from django102.models.player import Player
 
 
 def something(request):
@@ -15,10 +16,12 @@ def something(request):
 def index(request):
     title = 'SoftUni Django 101'
     users = User.objects.all()
+    games = Game.objects.all()
 
     context = {
         'title': title,
         'users': users,
+        'games': games,
     }
 
     return render(request, 'index.html', context)
