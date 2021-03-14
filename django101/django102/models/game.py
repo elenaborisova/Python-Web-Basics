@@ -3,7 +3,15 @@ from django.db import models
 from django102.models.player import Player
 
 
+class GameManager(models.Manager):
+    def all_with_players_count(self):
+        return self.all().\
+            annotate(players_count=models.Count('players'))
+
+
 class Game(models.Model):
+    objects = GameManager()
+
     DIFFICULTY_LEVELS_CHOICES = (
         (0, 'Easy'),
         (1, 'Medium'),
