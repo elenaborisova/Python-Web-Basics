@@ -5,8 +5,6 @@ from django.views.decorators.http import require_GET
 from django.views.generic import ListView
 
 from django102.models.game import Game
-from django102.models.person import Person
-from django102.models.player import Player
 
 
 def something(request):
