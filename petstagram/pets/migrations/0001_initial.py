@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
             name='Like',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('pet', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='pets.pet')),
+                ('pets', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='pets.pets')),
             ],
         ),
     ]
