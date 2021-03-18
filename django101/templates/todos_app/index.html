@@ -5,11 +5,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/todos/main.css' %}">
 </head>
 <body>
 <div class="root">
     <h1>Todos App</h1>
+
+    <form method="post" action="/">
+        <div class="form-group">
+            <label for="{{ todo_form.title.id_for_label }}">Title:</label>
+            <input type="text" class="form-control" id="{{ todo_form.title.id_for_label }}"
+                   aria-describedby="title_help">
+            <small id="title_help" class="form-text text-muted">Enter todo's title</small>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ todo_form.description.id_for_label }}">Description:</label>
+            <input type="text" class="form-control" id="{{ todo_form.description.id_for_label }}"
+                   aria-describedby="description_help">
+        </div>
+
+        <button class="btn btn-danger">Create</button>
+    </form>
+
     <ul class="todo-list">
         {% for todo in todos %}
             <li class="todo-list-item collapse-container">
