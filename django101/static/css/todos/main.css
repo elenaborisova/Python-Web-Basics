@@ -33,3 +33,7 @@ ul, li, h1, h2, p {
 .collapsed .collapsable {
     display: none;
 }
+
+form {
+    text-align: left;
+}
