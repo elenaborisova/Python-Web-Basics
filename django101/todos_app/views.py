@@ -22,8 +22,20 @@ def create_todo(request):
     form = TodoForm(request.POST)
 
     if form.is_valid():
-        todo = Todo(**form.cleaned_data, is_done=False)
+        todo = Todo(
+            title=form.cleaned_data['title'],
+            description=form.cleaned_data['description'],
+            is_done=False
+        )
         todo.save()
         return redirect('todos index')
 
     return index(request, form)
+
+
+def edit_todo(request):
+    pass
+
+
+def delete_todo(request):
+    pass

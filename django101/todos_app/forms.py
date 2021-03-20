@@ -3,7 +3,16 @@ from django import forms
 
 class TodoForm(forms.Form):
     title = forms.CharField(max_length=30)
-    description = forms.CharField()
+    description = forms.CharField(
+        validators=(
+            # min_validator,
+        )
+    )
+
+    bot_catcher = forms.CharField(
+        widget=forms.HiddenInput,
+        required=False,
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -13,3 +22,7 @@ class TodoForm(forms.Form):
             else:
                 value = 'form-control'
             field.widget.attrs['class'] = value
+
+    def clean_bot_catcher(self):
+        if len(self.cleaned_data['bot_catcher']):
+            raise forms.ValidationError('This is a bot')

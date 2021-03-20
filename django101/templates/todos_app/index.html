@@ -25,7 +25,8 @@
                            name="{{ todo_form.title.html_name }}"
                            class="form-control"
                            id="{{ todo_form.title.id_for_label }}"
-                           aria-describedby="title_help">
+                           aria-describedby="title_help"
+                           value="{{ todo_form.title.value }}"/>
                     <small id="title_help" class="form-text text-muted">Enter todo's title</small>
                     {{ todo_form.title.errors }}
                 </div>
@@ -36,8 +37,7 @@
                               name="{{ todo_form.description.html_name }}"
                               class="form-control"
                               id="{{ todo_form.description.id_for_label }}"
-                              aria-describedby="description_help">
-            </textarea>
+                              aria-describedby="description_help">{{ todo_form.title.value }}</textarea>
                     {{ todo_form.description.errors }}
                 </div>
 
@@ -59,6 +59,7 @@
                         {% else %}
                             <p class="red-text">Not done</p>
                         {% endif %}
+                        <a href="{% url 'edit todo' todo.id %}">Edit</a>
                     </li>
                 {% endfor %}
             </ul>
