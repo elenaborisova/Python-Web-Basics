@@ -5,13 +5,15 @@ from todos_app.forms import TodoForm
 from todos_app.models import Todo
 
 
-def index(request, form=None):
+def index(request, form=None, form_action='create todo', pk=None):
     if not form:
         form = TodoForm()
 
     context = {
-        'todos': Todo.objects.all(),
+        'todos': Todo.objects.all().order_by('title'),
         'todo_form': form,
+        'form_action': form_action,
+        'pk': pk,
     }
 
     return render(request, 'todos_app/index.html', context)
@@ -30,11 +32,30 @@ def create_todo(request):
         todo.save()
         return redirect('todos index')
 
-    return index(request, form)
+    return index(request, form, 'create todo')
 
 
-def edit_todo(request):
-    pass
+def edit_todo(request, pk):
+    todo = Todo.objects.get(pk=pk)
+
+    if request.method == 'GET':
+        form = TodoForm(initial=todo.__dict__)
+    else:
+        form = TodoForm(request.POST)
+        if form.is_valid():
+            todo.title = form.cleaned_data['title']
+            todo.description = form.cleaned_data['description']
+            todo.save()
+
+    return index(request, form, 'edit todo', pk=pk)
+
+
+@require_POST
+def mark_todo_done(request, pk):
+    todo = Todo.objects.get(pk=pk)
+    todo.is_done = not todo.is_done
+    todo.save()
+    return redirect('todos index')
 
 
 def delete_todo(request):
