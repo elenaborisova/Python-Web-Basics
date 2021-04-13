@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django101',
     'django102',
-    'todos_app'
+    'todos_app',
+    'books',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django101_db',
         'USER': '',
-        'PASSWORD': '',
+        'PASSWORD': '.',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

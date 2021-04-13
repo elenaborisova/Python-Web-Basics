@@ -41,11 +41,14 @@
                           name="{{ todo_form.description.html_name }}"
                           class="form-control"
                           id="{{ todo_form.description.id_for_label }}"
-                          aria-describedby="description_help">{{ todo_form.title.value }}</textarea>
+                          aria-describedby="description_help">{{ todo_form.description.value }}</textarea>
                 {{ todo_form.description.errors }}
             </div>
-
-            <button class="btn btn-danger">Create</button>
+            {% if form_action == 'create todo' %}
+                <button class="btn btn-danger">Create</button>
+            {% elif form_action == 'edit todo' %}
+                <button class="btn btn-danger">Edit</button>
+            {% endif %}
             </form>
         </div>
         <div class="col-9">
