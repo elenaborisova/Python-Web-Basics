@@ -44,7 +44,7 @@ class PersonViewsTests(TestCase):
             'egn': egn,
         }
 
-        response = self.test_client.post(reverse('profiles'))
+        response = self.test_client.post(reverse('profiles'), data=data)
 
         self.assertRedirects(response, reverse('profiles'))
 
@@ -58,6 +58,11 @@ class PersonViewsTests(TestCase):
             'egn': egn,
         }
 
-        response = self.test_client.post(reverse('profiles'))
+        response = self.test_client.post(reverse('profiles'), data=data)
 
-        self.assertRedirects(response, reverse('profiles'))
+        self.assertTemplateUsed(response, 'testing/index.html')
+        profiles = response.context['profiles']
+        self.assertEqual(0, len(profiles))
+
+        form = response.context['form']
+        self.assertIsNotNone(form.errors['egn'])

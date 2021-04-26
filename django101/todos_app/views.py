@@ -39,7 +39,7 @@ def edit_todo(request, pk):
     todo = Todo.objects.get(pk=pk)
 
     if request.method == 'GET':
-        form = TodoForm(initial=todo.__dict__)
+        form = TodoForm(instance=todo.__dict__)
     else:
         form = TodoForm(request.POST)
         if form.is_valid():

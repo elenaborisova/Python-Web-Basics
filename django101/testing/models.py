@@ -1,7 +1,7 @@
 from django.core import validators
 from django.db import models
 
-from testing.validators import contains_only_digits
+from testing.validators import contains_only_digits_validator
 
 
 class Profile(models.Model):
@@ -17,6 +17,6 @@ class Profile(models.Model):
         validators=(
             validators.MinLengthValidator(10),
             validators.MaxLengthValidator(10),
-            contains_only_digits,
+            contains_only_digits_validator,
         )
     )
