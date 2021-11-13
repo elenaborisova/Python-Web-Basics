@@ -1,17 +1,16 @@
 from django.shortcuts import render, redirect
-from django.views.decorators.http import require_POST
 
+from app.common.budget import calculate_budget_left
+from app.common.profile import get_profile
 from app.forms.profiles import ProfileForm
-from app.models import Profile, Expense
 
 
 def profile_index(request):
-    profile = Profile.objects.all()[0]
-    expenses = Expense.objects.all()
-    expenses_cost = sum(expense.price for expense in expenses)
+    profile = get_profile()
+    expenses = profile.expense_set.all()
+    profile.budget_left = calculate_budget_left(expenses, profile)
     context = {
         'profile': profile,
-        'budget_left': profile.budget - expenses_cost,
     }
     return render(request, 'profile.html', context)
 
@@ -35,8 +34,32 @@ def create_profile(request):
 
 
 def edit_profile(request):
-    pass
+    profile = get_profile()
+    if request.method == 'GET':
+        form = ProfileForm(instance=profile)
+        context = {
+            'form': form
+        }
+        return render(request, 'profile-edit.html', context)
+    else:
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile index')
+
+        context = {
+            'form': form,
+        }
+        return render(request, 'profile-edit.html', context)
 
 
 def delete_profile(request):
-    pass
+    profile = get_profile()
+    if request.method == 'GET':
+        context = {
+            'form': ProfileForm(instance=profile),
+        }
+        return render(request, 'profile-delete.html', context)
+    else:
+        profile.delete()
+        return redirect('index')
