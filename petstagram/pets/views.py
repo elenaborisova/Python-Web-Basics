@@ -57,7 +57,7 @@ def persist_pet(request, pet, template_name):
 
         return render(request, template_name, context)
     else:
-        form = PetForm(request.POST, instance=pet)
+        form = PetForm(request.POST, request.FILES, instance=pet)
         if form.is_valid():
             form.save()
             return redirect('pet details or comment', pet.pk)
