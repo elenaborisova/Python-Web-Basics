@@ -1,2 +1,2 @@
 # Python-Web-Basics
-SoftUni Homework Assignments
+SoftUni Web Projects
